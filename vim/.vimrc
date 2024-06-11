@@ -95,14 +95,18 @@ set incsearch
 "set runtimepath^=~/.vim/plugin/vim-ripgrep.vim
 
 call plug#begin()
-#Plug 'vimwiki/vimwiki'
-#Plug 'prabirshrestha/vim-lsp'
-#Plug 'mattn/vim-lsp-settings'
-#Plug 'piec/vim-lsp-clangd'
-#Plug 'junegunn/fzf'
-#Plug 'junegunn/fzf.vim'
+Plug 'vimwiki/vimwiki'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'michal-h21/vimwiki-sync'
+
+"Plug 'mattn/vim-lsp-settings'
+"Plug 'piec/vim-lsp-clangd'
+"Plug 'junegunn/fzf'
+"Plug 'junegunn/fzf.vim'
 
 call plug#end()
+
 
 " if executable('clangd')
 "     au User lsp_setup call lsp#register_server({
@@ -133,6 +137,10 @@ noremap <silent> gd :LspDefinition<CR>
 let mapleader=" "
 noremap <Leader>g :GFiles<CR>
 
-source ~/.vim/cscope_maps.vim
+setlocal nospell
 
-setlocal spell
+let g:vimwiki_diary_frequency = 'weekly'
+let g:vimwiki_list = [{'path': '~/notes/', 'syntax': 'markdown', 'ext':'md'}]
+"let g:vimwiki_global_ext=0
+"
+
