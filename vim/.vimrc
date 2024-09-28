@@ -75,7 +75,7 @@ set so=7
 "colorscheme gruvbox
 
 nnoremap <F4> :make<cr>
-set keywordprg=man\ -s\ 2,3,4,5,1
+"set keywordprg=man\ -s\ 2,3,4,5,1
 " -- git command on current file
 fun! GitCommand(command)
   silent! !clear
@@ -94,18 +94,18 @@ set incsearch
 
 "set runtimepath^=~/.vim/plugin/vim-ripgrep.vim
 
-call plug#begin()
-Plug 'vimwiki/vimwiki'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'michal-h21/vimwiki-sync'
+"call plug#begin()
+"Plug 'vimwiki/vimwiki'
+"Plug 'prabirshrestha/vim-lsp'
+"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+"Plug 'michal-h21/vimwiki-sync'
 
 "Plug 'mattn/vim-lsp-settings'
 "Plug 'piec/vim-lsp-clangd'
 "Plug 'junegunn/fzf'
 "Plug 'junegunn/fzf.vim'
 
-call plug#end()
+"call plug#end()
 
 
 " if executable('clangd')
@@ -143,4 +143,35 @@ let g:vimwiki_diary_frequency = 'weekly'
 let g:vimwiki_list = [{'path': '~/notes/', 'syntax': 'markdown', 'ext':'md'}]
 "let g:vimwiki_global_ext=0
 "
+execute pathogen#infect()
 
+
+" specify file types for vim-lsp
+augroup LspRust
+  autocmd!
+  autocmd FileType rust call lsp#register_server({
+  \ 'name': 'rust-analyzer',
+  \ 'cmd': {server_info->['rust-analyzer']},
+  \ 'initialization_options': lsp_settings['rust-                                 analyzer']['initialization_options'],
+  \ 'env': lsp_settings['rust-analyzer']['env'],
+  \ 'whitelist': ['rust'],
+  \})
+augroup END
+
+" ChatGPT wrote this rust stuff
+" configure vim-lsp
+let g:lsp_settings = {
+\ 'rust-analyzer': {
+\   'cmd': ['rust-analyzer'],
+\   'initialization_options': {
+\     'cargo': {
+\       'buildScripts': {
+\         'enable': v:true
+\       }
+\     }
+\   },
+\   'env': {
+\     'RUSTFLAGS': '-D warnings -A dead_code'
+\   },
+\ }
+\}
