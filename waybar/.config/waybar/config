@@ -1,0 +1,189 @@
+{
+    // "layer": "top", // Waybar at top layer
+    "position": "bottom", // Waybar position (top|bottom|left|right)
+    "height": 40, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    // Choose the order of the modules
+     "modules-left": ["sway/workspaces", "sway/mode"],
+    //"modules-left": [  "river/tags"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["network", "cpu", "temperature", "backlight", "battery", "wireplumber", "clock"],
+
+    // Modules configuration
+    "river/tags" : {
+        "num-tags": 9,
+        //"tag-labels": [ "{name}" ]
+    },
+    "sway/workspaces": {
+        "disable-scroll-wraparound": true,
+    //     "disable-scroll": true,
+    //     "all-outputs": true,
+    //     "format": "{name}: {icon}",
+    //     "format-icons": {
+    //         "1": "",
+    //         "2": "",
+    //         "3": "",
+    //         "4": "",
+    //         "5": "",
+    //         "urgent": "",
+    //         "focused": "",
+    //         "default": ""
+    //     }
+    },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "mpd": {
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ ",
+        "format-disconnected": "Disconnected ",
+        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+        "unknown-tag": "N/A",
+        "interval": 2,
+        "consume-icons": {
+            "on": " "
+        },
+        "random-icons": {
+            "off": "<span color=\"#f53c3c\"></span> ",
+            "on": " "
+        },
+        "repeat-icons": {
+            "on": " "
+        },
+        "single-icons": {
+            "on": "1 "
+        },
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        },
+        "tooltip-format": "MPD (connected)",
+        "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 10
+    },
+    "clock": {
+        "format": "{:%H:%M:%S %a, %b %d}",
+        "timezone": "America/Los_Angeles",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%Y-%m-%d}",
+        "interval": 1
+    },
+    "cpu": {
+        "format": "{load}",
+        "tooltip-format": "freq: {load}",
+    },
+    "memory": {
+        "on-click-right": "exec foot -e btop",
+        "format": "{}% "
+    },
+    "temperature": {
+         "thermal-zone": 0,
+     //   "hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input",
+        "critical-threshold": 50,
+        "format-critical": "{temperatureC}°C {icon}",
+        "format": "{temperatureC}°C {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{icon}",
+        "format-alt": "{percent}%",
+        "tooltip-format": "{percent}%",
+        "on-scroll-up": "light -A 1",
+        "on-scroll-down": "light -U 1",
+        "on-click-right": "light -S 0",
+        "on-click": "light -A 10",
+        "format-icons": ["", ""]
+    },
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 50,
+            "critical": 15
+        },
+        "interval": 1,
+        //"format": "{capacity}% {icon}",
+        "format": "{icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{capacity}% {icon}",
+        "tooltip-format": "{time} ({capacity}%)",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "{signaldBm}dBm ",
+        "tooltip-format": "{essid} {frequency} ({signaldBm} dBm) ",
+        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected ⚠",
+        "format-alt": "{ifname}: {ipaddr}/{cidr} up:{bandwidthUpBits} down:{bandwidthDownBits}",
+        "on-click-right": "exec foot -e nmtui-connect"
+    },
+    "pulseaudio": {
+        "scroll-step": 2, // %, can be a float
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+ "wireplumber": {
+    "format": "{icon}",
+    "format-alt": "{volume}% {icon}",
+    "tooltip-format": "{volume}%",
+    "format-muted": "X",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "format-icons": ["", "", ""]
+},
+    "custom/media": {
+        "format": "{icon} {}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "",
+            "default": "🎜"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    },
+    "custom/unreadcount": {
+        "exec": "$HOME/.local/bin/newmail",
+        "return-type": "json",
+        "interval": 1,
+        "format-icons": {
+            "default": "",
+            "unread": ""
+        },
+        "format": "{} {icon}",
+    },
+    "custom/fanspeed": {
+        "exec": "$HOME/.local/bin/fanspeed",
+        "return-type": "json",
+        "interval": 1,
+        "format": "fan: {} rpm",
+    },
+}
