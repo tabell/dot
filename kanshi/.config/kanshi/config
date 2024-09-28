@@ -1,0 +1,21 @@
+profile triple {
+	output eDP-1 enable mode 1920x1080 position 2560,1440 scale 1
+    output "Dell Inc. DELL U2718Q 4K8X79CS0LEL" mode 2560x1440 position 2560,0 scale 1
+    output "Dell Inc. DELL U2718Q 4K8X795U0DYL" mode 2560x1440 position 0,0 scale 1
+}
+
+profile triple_4k {
+	output eDP-1 enable mode 1920x1080 position 4750,2160
+    output "Dell Inc. DELL U2718Q 4K8X79CS0LEL" mode 3840x2160 position 3840,0 scale 1.5
+    output "Dell Inc. DELL U2718Q 4K8X795U0DYL" mode 3840x2160 position 0,0 scale 1.5
+}
+
+profile clamshell {
+	output eDP-1 disable
+    output "Dell Inc. DELL U2718Q 4K8X79CS0LEL" mode 2560x1440 position 2560,0
+    output "Dell Inc. DELL U2718Q 4K8X795U0DYL" mode 2560x1440 position 0,0
+}
+
+profile laptop {
+	output eDP-1 enable mode 1920x1080 position 2560,1440
+}
