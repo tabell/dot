@@ -1,0 +1,9 @@
+on-button-middle=dismiss-all
+border-radius=10
+font=monospace 14
+margin=20,20
+padding=20,5
+text-alignment=center
+default-timeout=7000
+background-color=#285577
+format=%s\n%b
