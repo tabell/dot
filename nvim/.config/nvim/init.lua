@@ -6,9 +6,18 @@ vim.g.mapleader = ' '
 
 -- General settings
 vim.o.number = true
+require('cyberdream').setup({
+  -- ... other cyberdream options can go here
+  transparent = true,
+  -- ...
+})
+
+-- Now, you can apply the colorscheme
 vim.cmd('colorscheme cyberdream')
+
 vim.o.ignorecase = true  -- Case-insensitive search
 vim.o.shiftwidth = 4
+vim.o.cursorline = true
 
 -- Load Lua modules
 require('lsp')
@@ -17,8 +26,6 @@ local status_ok, telescope = pcall(require, "telescope")
 if not status_ok then
   return
 end
-
-
 
 vim.cmd('packadd telescope.nvim')
 local telescope = require('telescope')
@@ -32,6 +39,12 @@ telescope.setup({
       push_tagstack_on_edit = true,
     },
   },
+  defaults = {
+    file_ignore_patterns = {
+      "test", "Test", "TEST", "cscope", "tags"
+  },
+  }
+
 })
 
 
@@ -70,6 +83,22 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
     underline = false
   }
 )
+
+require('lspconfig').rust_analyzer.setup({
+  settings = {
+    ["rust-analyzer"] = {
+      cargo = {
+        allFeatures = true, -- enables all crate features
+      },
+      procMacro = {
+        enable = true, -- enables support for procedural macros
+      },
+    },
+  },
+})
+
+
+require('lspconfig').jedi_language_server.setup{}
 
 
 
