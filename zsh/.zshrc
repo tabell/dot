@@ -1,9 +1,16 @@
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=100000
-SAVEHIST=10000000
+### zsh options
+
+# Keep oodles of command history
+HISTSIZE=1000000
+SAVEHIST=1000000
+setopt APPEND_HISTORY
+
+# Allow tab completion in the middle of a word.
+setopt COMPLETE_IN_WORD
 setopt extendedglob
 unsetopt beep
+
+
 bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
@@ -13,16 +20,10 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-PROMPT='%(?.%F{green}√.%F{red}%?)%f %B%F{240}%1~%f%b %# '
-
-export TERM=xterm-256color
+export PROMPT='%(?.%F{green}√.%F{red}%?) %B%F{240}[%M] %1~%f%b %# '
 
 bindkey ";5C" forward-word
 bindkey ";5D" backward-word
-
-# completion
-autoload -Uz compinit
-compinit
 
 # double-tab completion with menu
 zstyle ':completion:*' menu select
@@ -77,16 +78,29 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 
 function incog() {
-     PROMPT='%(?.%F{green}√.%F{red}%?)%f %B%F{240}%1~%f%b %F{red}%#%f '
+     PROMPT='%(?.%F{green}√.%F{red}%?) %B%F{240}[%M] %1~%f%b %F{red}%#%f '
      unset HISTFILE
      
  }
      
-alias open=xdg-open # make linux act like mac
+### environment options
+
 alias ls='ls --color=auto -latr'
 alias rsync='rsync -Parv'
+if [[ $(uname) == Linux ]]; then
+    alias open=xdg-open # make linux act like mac
+fi
 
-export EDITOR=vim
+# Set nvim if available, fallback to vim
+if command -v nvim >/dev/null 2>&1; then
+  export EDITOR=nvim
+  alias vim='nvim'
+else
+  export EDITOR=vim
+fi
+
 export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/go/bin
+export TERM=xterm-256color
 
 unset DEBUGINFOD_URLS # for gdb
