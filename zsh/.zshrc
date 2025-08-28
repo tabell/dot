@@ -20,8 +20,6 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-export PROMPT='%(?.%F{green}√.%F{red}%?) %B%F{240}[%M] %1~%f%b %# '
-
 bindkey ";5C" forward-word
 bindkey ";5D" backward-word
 
@@ -77,6 +75,7 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[Up]}"   ]] && bindkey -- "${key[Up]}"   up-line-or-beginning-search
 [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 
+export PROMPT='%(?.%F{green}√.%F{red}%?) %B%F{240}[%M] %1~%f%b %# '
 function incog() {
      PROMPT='%(?.%F{green}√.%F{red}%?) %B%F{240}[%M] %1~%f%b %F{red}%#%f '
      unset HISTFILE
@@ -104,3 +103,7 @@ export PATH=$PATH:$HOME/go/bin
 export TERM=xterm-256color
 
 unset DEBUGINFOD_URLS # for gdb
+alias rg='rg -i'
+
+export WORDCHARS=${WORDCHARS/\/}
+export WORDCHARS=${WORDCHARS/_}
