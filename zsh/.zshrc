@@ -1,9 +1,16 @@
 ### zsh options
 
 # Keep oodles of command history
-HISTSIZE=1000000
-SAVEHIST=1000000
-setopt APPEND_HISTORY
+# ~/.zshrc
+export HISTFILE="$HOME/.zsh_history"   # required for persistence
+export HISTSIZE=50000                  # in-memory entries
+export SAVEHIST=500000                  # on-disk entries
+setopt APPEND_HISTORY           # append instead of overwrite
+setopt INC_APPEND_HISTORY       # write new lines immediately
+setopt HIST_IGNORE_DUPS         # skip adjacent dup
+setopt HIST_IGNORE_SPACE        # skip cmds starting with space
+setopt HIST_REDUCE_BLANKS       # collapse extra whitespace
+setopt EXTENDED_HISTORY         # timestamps in file
 
 # Allow tab completion in the middle of a word.
 setopt COMPLETE_IN_WORD
